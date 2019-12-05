@@ -79,7 +79,31 @@ manager: kfile
 -   In Solution Explorer, right-click the dimension or you just modified and select **Process**.  
   
  You must use the Process Full option on each object that is using the new string store architecture. Before processing, be sure to run an impact analysis on the dimension to check whether dependent objects also require reprocessing.  
+
+##  <a name="bkmk_altapproach"></a> Alternative Approach via SSMS
+
+Alternatively you can also edit the xmla directly to add the required compatability tag to the dimension and reprocess to have the new setting take effect.  
+
+##  <a name="bkmk_altapproach"></a> How to generate the xmla via SSMS
+
+1. Connect to the Analysis Services Database via SSMS
+
+2. Expand the Database and dimensions and navigate to the dimension you need to update.
+
+3. Right-Click and select Script Dimension As -> Alter To -> New Query Editor Window 
+
+4. Find the following XML in the script
+
+   &lt;/ProactiveCaching>
+   
+   &lt;/Dimension>
   
+5. Add the following tag to change the compatibility level.
+
+   <<ddl300:StringStoresCompatibilityLevel>1100</ddl300:StringStoresCompatibilityLevel>
+
+6. Execute the script and reprocess the dimension
+
 ## See Also  
  [Tools and Approaches for Processing &#40;Analysis Services&#41;](../../analysis-services/multidimensional-models/tools-and-approaches-for-processing-analysis-services.md)   
  [Processing Options and Settings &#40;Analysis Services&#41;](../../analysis-services/multidimensional-models/processing-options-and-settings-analysis-services.md)   
